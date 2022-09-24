@@ -34,7 +34,7 @@ public class OrderController {
         return String.format("It's working in Order Service on PORT %s", env.getProperty("local.server.port"));
     }
 
-    @PostMapping("/{userId}/orders/") // 특정 사용자의 주문
+    @PostMapping("/{userId}/orders") // 특정 사용자의 주문
     public ResponseEntity<ResponseOrder> createOrder(@RequestBody RequestOrder orderDtails, @PathVariable("userId") String userId) {
         ModelMapper mapper = new ModelMapper(); //  ModelMapper는 DTO를 엔티티로 바꿀때 쉽게 바꿀수 있게 해주는 해준다. (pom.xml에서 의존성을 추가해야한다.)
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT); // 딱 맞아 떨어지지 않으면 변환을 못하게 전략 설정
@@ -49,7 +49,7 @@ public class OrderController {
                 .body(responseOrder);
     }
 
-    @GetMapping("/{userId}/orders/") // 특정 사용자의 주문
+    @GetMapping("/{userId}/orders") // 특정 사용자의 주문
     public ResponseEntity<List<ResponseOrder>> getOrder(@PathVariable("userId") String userId) {
         Iterable<OrderEntity> orderList = orderService.getOrdersByUserId(userId);
 
